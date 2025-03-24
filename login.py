@@ -5,5 +5,4 @@ def login(username, password):
     print("Access Denied - Main Branch!")
     return False
 
-print("Login System - Main Branch")
-print("Stable Version")
+print("Login System v2.0")
