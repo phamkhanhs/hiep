@@ -1,8 +1,9 @@
 def login(username, password):
-    if username == "admin" and password == "feature1_password":
-        print("Welcome to Feature 1!")
+    if username == "admin" and password == "feature2_secret":
+        print("Welcome to Feature 2!")
         return True
-    print("Invalid credentials!")
+    print("Access Denied - Feature 2!")
     return False
 
-print("Login System v2.0")
+print("Login System - Feature 2 Edition")
+print("Version 3.0")
