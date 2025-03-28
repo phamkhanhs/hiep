@@ -73,3 +73,106 @@ Tóm lại, Ubuntu là sự cân bằng hoàn hảo giữa tính dễ sử dụn
 
 ## 8. Kết luận
 Linux là một hệ điều hành mã nguồn mở với lịch sử phát triển phong phú, mang lại sự tự do và linh hoạt cho người dùng. Ubuntu, với nền tảng từ Debian và sự hỗ trợ của Canonical, là lựa chọn lý tưởng trong bối cảnh thực tập Data Engineer và DevOps nhờ khả năng tích hợp công cụ hiện đại, độ ổn định cao, và hỗ trợ cộng đồng mạnh mẽ. Dù không hoàn hảo cho mọi nhu cầu, Ubuntu vẫn là một trong những bản phân phối Linux hàng đầu, phù hợp cho việc học hỏi và triển khai thực tế trong môi trường kỹ thuật dữ liệu và vận hành hệ thống.
+
+# BÁO CÁO THỰC TẬP DATA ENGINEER VÀ DEVOPS - PHẦN 2: TỔNG HỢP KIẾN THỨC
+
+## 1. Giới thiệu
+Trong quá trình thực tập với vai trò **Data Engineer** kết hợp **DevOps**, việc nắm vững các khái niệm, giao thức và công cụ mạng cơ bản là nền tảng quan trọng để triển khai, quản lý hệ thống và xử lý dữ liệu hiệu quả. Phần báo cáo này tổng hợp kiến thức về các khái niệm như **IP, SSH, SCP, SMTP, FTP, SFTP, HTTP/HTTPS, DNS, UDP, TCP, VPN, NAT, VM**, cùng với các ví dụ thực hành đã thực hiện trong môi trường **Ubuntu**.
+
+## 2. Tổng hợp kiến thức và ví dụ thực hành
+
+### 2.1. IP (Internet Protocol)
+- **Khái niệm**: IP là giao thức định tuyến và định địa chỉ cho các gói tin trên mạng. Có hai phiên bản chính:
+  - **IPv4** (32-bit, ví dụ: `192.168.1.1`)
+  - **IPv6** (128-bit, ví dụ: `2001:0db8::1`)
+- **Vai trò**: Xác định nguồn và đích của dữ liệu trong mạng.
+- **Ví dụ thực hành**: Kiểm tra địa chỉ IP trên Ubuntu bằng lệnh:
+  ```bash
+  ip addr show
+  ```
+  Kết quả: Hiển thị IP của máy, ví dụ `192.168.1.100` trên giao diện `eth0`.
+
+### 2.2. SSH (Secure Shell)
+- **Khái niệm**: SSH là giao thức mã hóa để truy cập và quản lý máy từ xa an toàn.
+- **Vai trò**: Thay thế Telnet, cho phép thực thi lệnh từ xa.
+- **Ví dụ thực hành**: Kết nối từ máy local đến server Ubuntu:
+  ```bash
+  ssh user@192.168.1.200
+  ```
+  Sau khi nhập mật khẩu, tôi đã truy cập shell của server để kiểm tra log hệ thống.
+
+### 2.3. SCP (Secure Copy Protocol)
+- **Khái niệm**: SCP là công cụ truyền file an toàn dựa trên SSH.
+- **Vai trò**: Di chuyển file giữa các máy qua mạng.
+- **Ví dụ thực hành**: Sao chép file `data.csv` từ local sang server:
+  ```bash
+  scp data.csv user@192.168.1.200:/home/user/data/
+  ```
+  File được truyền thành công và kiểm tra bằng lệnh `ls` trên server.
+
+### 2.4. SMTP (Simple Mail Transfer Protocol)
+- **Khái niệm**: SMTP là giao thức gửi email qua mạng.
+- **Vai trò**: Đảm bảo email được chuyển từ client đến server mail.
+- **Ví dụ thực hành**: Cấu hình gửi email thông báo từ script Python trên Ubuntu:
+  ```python
+  import smtplib
+  server = smtplib.SMTP('smtp.gmail.com', 587)
+  server.starttls()
+  server.login("user@gmail.com", "password")
+  server.sendmail("user@gmail.com", "recipient@example.com", "Pipeline completed")
+  ```
+  Email thông báo hoàn tất pipeline dữ liệu đã được gửi.
+
+### 2.5. FTP (File Transfer Protocol) và SFTP (Secure FTP)
+- **Khái niệm**:
+  - **FTP** truyền file không mã hóa.
+  - **SFTP** sử dụng SSH để mã hóa dữ liệu.
+- **Vai trò**: FTP đơn giản nhưng kém an toàn; SFTP bảo mật hơn.
+- **Ví dụ thực hành**: Tải file từ server bằng SFTP:
+  ```bash
+  sftp user@192.168.1.200
+  get /home/user/data.csv
+  ```
+  File `data.csv` được tải về máy local an toàn.
+
+### 2.6. HTTP/HTTPS (HyperText Transfer Protocol / Secure)
+- **Khái niệm**: HTTP là giao thức truyền tải trang web; HTTPS bổ sung mã hóa SSL/TLS.
+- **Vai trò**: Truy cập web (HTTP) và bảo mật dữ liệu (HTTPS).
+- **Ví dụ thực hành**: Kiểm tra phản hồi từ API bằng `curl`:
+  ```bash
+  curl -I https://api.example.com
+  ```
+  Kết quả: Trả về header với mã trạng thái `200 OK`.
+
+### 2.7. DNS (Domain Name System)
+- **Khái niệm**: DNS chuyển tên miền (ví dụ: `google.com`) thành địa chỉ IP.
+- **Vai trò**: Giúp truy cập dịch vụ qua tên thay vì IP.
+- **Ví dụ thực hành**: Tra cứu IP của tên miền:
+  ```bash
+  nslookup google.com
+  ```
+  Kết quả: Hiển thị IP như `142.250.190.14`.
+
+### 2.8. UDP (User Datagram Protocol)
+- **Khái niệm**: UDP là giao thức truyền dữ liệu không kết nối, nhanh nhưng không đảm bảo thứ tự.
+- **Vai trò**: Dùng trong streaming, game online.
+- **Ví dụ thực hành**: Kiểm tra port UDP bằng `netcat`:
+  ```bash
+  nc -u 192.168.1.200 12345
+  ```
+  Gửi và nhận dữ liệu thử nghiệm qua UDP.
+
+## 3. Ứng dụng trong Data Engineer và DevOps
+- **Data Engineer**:
+  - **SCP, SFTP**: Truyền dữ liệu lớn.
+  - **SMTP**: Gửi thông báo pipeline.
+  - **HTTP/HTTPS**: Truy cập API dữ liệu.
+- **DevOps**:
+  - **SSH**: Quản lý server.
+  - **VPN**: Kết nối an toàn.
+  - **VM**: Thử nghiệm pipeline CI/CD.
+  - **TCP/UDP**: Tối ưu mạng.
+
+## 4. Kết luận
+Việc nắm vững các khái niệm và công cụ mạng cơ bản như **IP, SSH, SCP, SMTP, FTP, SFTP, HTTP/HTTPS, DNS, UDP, TCP, VPN, NAT, VM** là nền tảng để thực hiện các tác vụ trong **Data Engineering** và **DevOps**. Các ví dụ thực hành trên Ubuntu đã giúp tôi hiểu rõ cách áp dụng chúng vào quản lý hệ thống, truyền dữ liệu và triển khai pipeline. Kiến thức này sẽ là bước đệm để tôi tiếp tục phát triển trong lĩnh vực **kỹ thuật dữ liệu** và **vận hành hệ thống**.
+
