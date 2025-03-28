@@ -1,4 +1,33 @@
-# BÁO CÁO THỰC TẬP DATA ENGINEER VÀ DEVOPS - PHẦN 1: LINUX VÀ CÁC BẢN PHÂN PHỐI - TẬP TRUNG VÀO UBUNTU
+# BÁO CÁO THỰC TẬP DATA ENGINEER VÀ DEVOPS
+
+## Mục lục
+- [Phần 1: Linux và Ubuntu](#phần-1-linux-và-các-bản-phân-phối---tập-trung-vào-ubuntu)
+  - [1. Linux là gì?](#1-linux-là-gì)
+  - [2. Lịch sử của Linux](#2-lịch-sử-của-linux)
+  - [3. Tại sao nên sử dụng Linux?](#3-tại-sao-nên-sử-dụng-linux)
+  - [4. Giới thiệu về Linux và các bản phân phối](#4-giới-thiệu-về-linux-và-các-bản-phân-phối)
+  - [5. Lịch sử của Ubuntu](#5-lịch-sử-của-ubuntu)
+  - [6. Ví dụ thực hành cài đặt và kiểm tra](#6-ví-dụ-thực-hành-cài-đặt-và-kiểm-tra-các-câu-lệnh-của-linux-ubuntu)
+  - [7. Tại sao chọn Ubuntu cho Data Engineer và DevOps?](#7-tại-sao-tôi-chọn-ubuntu-trong-bối-cảnh-data-engineer-và-devops)
+  - [8. Ưu điểm và nhược điểm của Ubuntu](#8-ưu-điểm-và-nhược-điểm-của-ubuntu)
+  - [9. So sánh Ubuntu với các bản phân phối khác](#9-so-sánh-ubuntu-với-các-bản-phân-phối-khác)
+  - [10. Package Management và Shell Scripting](#10-package-management-và-shell-scripting)
+  - [11. System Administration](#11-system-administration)
+  - [12. Bảo mật Linux](#12-bảo-mật-linux)
+  - [13. Kết luận phần 1](#13-kết-luận-phần-1)
+- [Phần 2: Tổng hợp kiến thức mạng](#phần-2-tổng-hợp-kiến-thức-mạng)
+  - [1. Giới thiệu](#1-giới-thiệu)
+  - [2. Khái niệm mạng cơ bản](#2-khái-niệm-mạng-cơ-bản)
+  - [3. Các thuật ngữ mạng máy tính](#3-các-thuật-ngữ-mạng-máy-tính)
+  - [4. Công cụ mạng cơ bản và thực hành](#4-công-cụ-mạng-cơ-bản-và-thực-hành)
+  - [5. Tổng hợp giao thức và ví dụ thực hành](#5-tổng-hợp-giao-thức-và-ví-dụ-thực-hành)
+  - [6. Container Networking](#6-container-networking)
+  - [7. Cloud Networking](#7-cloud-networking)
+  - [8. Network Security](#8-network-security)
+  - [9. Monitoring và Logging](#9-monitoring-và-logging)
+  - [10. Troubleshooting Guide](#10-troubleshooting-guide)
+  - [11. Ứng dụng trong Data Engineer và DevOps](#11-ứng-dụng-trong-data-engineer-và-devops)
+  - [12. Kết luận phần 2](#12-kết-luận-phần-2)
 
 ## 1. Linux là gì?
 Linux là một hệ điều hành mã nguồn mở (open-source) được xây dựng dựa trên nhân (kernel) Linux, do Linus Torvalds phát triển từ năm 1991. Không giống các hệ điều hành độc quyền như Windows hay macOS, Linux cho phép người dùng tự do truy cập, chỉnh sửa, và phân phối mã nguồn. Linux thường được gọi là **GNU/Linux**, vì nó kết hợp nhân Linux với các công cụ từ dự án GNU.
@@ -150,8 +179,151 @@ top
 | Hiệu suất | Trung bình | Cao | Trung bình | Rất cao |
 | Tùy chỉnh | Trung bình | Trung bình | Trung bình | Rất cao |
 
-## 10. Kết luận
-Linux là một hệ điều hành mã nguồn mở với nhiều lợi ích. Ubuntu, với sự hỗ trợ mạnh mẽ từ Canonical, là lựa chọn lý tưởng cho Data Engineer và DevOps nhờ tính ổn định, khả năng tích hợp công cụ hiện đại, và sự hỗ trợ mạnh từ cộng đồng.
+## 10. Package Management và Shell Scripting
+
+### 10.1. Package Management
+#### APT (Advanced Package Tool)
+* **Cài đặt packages**:
+```bash
+sudo apt update
+sudo apt install tên-gói
+```
+* **Xóa packages**:
+```bash
+sudo apt remove tên-gói
+sudo apt autoremove
+```
+* **Tìm kiếm packages**:
+```bash
+apt search từ-khóa
+```
+
+#### Snap
+* **Ưu điểm**:
+  * Tự động cập nhật
+  * Bảo mật sandbox
+  * Hỗ trợ đa phân phối
+* **Nhược điểm**:
+  * Khởi động chậm hơn
+  * Chiếm nhiều dung lượng
+* **Ví dụ**:
+```bash
+sudo snap install docker
+```
+
+#### Flatpak
+* **Ưu điểm**:
+  * Độc lập với bản phân phối
+  * Bảo mật sandbox
+* **Nhược điểm**:
+  * Cài đặt phức tạp hơn
+* **Ví dụ**:
+```bash
+flatpak install flathub com.spotify.Client
+```
+
+### 10.2. Shell Scripting
+#### Cơ bản
+```bash
+#!/bin/bash
+# Biến
+TEN="Người dùng"
+echo "Xin chào $TEN"
+
+# Vòng lặp
+for i in {1..5}; do
+    echo $i
+done
+
+# Điều kiện
+if [ -f "tập-tin.txt" ]; then
+    echo "Tập tin tồn tại"
+fi
+```
+
+#### Hàm
+```bash
+#!/bin/bash
+sao_luu_csdl() {
+    local TEN_CSDL=$1
+    local THU_MUC_SAO_LUU="/sao-luu"
+    
+    echo "Đang sao lưu $TEN_CSDL vào $THU_MUC_SAO_LUU"
+    # logic sao lưu ở đây
+}
+
+sao_luu_csdl "csdl-cua-toi"
+```
+
+## 11. System Administration
+
+### 11.1. Systemd Services
+* **Tạo service mới**:
+```ini
+[Unit]
+Description=Dịch Vụ Tùy Chỉnh Của Tôi
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/dich-vu-cua-toi
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+* **Quản lý services**:
+```bash
+sudo systemctl start dich-vu-cua-toi
+sudo systemctl enable dich-vu-cua-toi
+sudo systemctl status dich-vu-cua-toi
+```
+
+### 11.2. Log Management
+* **Xem logs**:
+```bash
+journalctl -u dich-vu-cua-toi
+```
+* **Rotate logs**:
+```bash
+logrotate /etc/logrotate.d/dich-vu-cua-toi
+```
+
+## 12. Bảo mật Linux
+
+### 12.1. File Permissions
+```bash
+# Thay đổi chủ sở hữu
+chown nguoidung:nhom tap-tin.txt
+
+# Thay đổi quyền truy cập
+chmod 755 tap-tin.txt
+
+# Đặt quyền mặc định
+umask 022
+```
+
+### 12.2. SELinux/AppArmor
+* **Chế độ SELinux**:
+  * Cưỡng chế
+  * Cho phép
+  * Vô hiệu hóa
+* **Hồ sơ AppArmor**:
+```bash
+aa-status
+aa-enforce /etc/apparmor.d/ho-so
+```
+
+### 12.3. Các Biện Pháp Bảo Mật Tốt Nhất
+* Sử dụng khóa SSH thay vì mật khẩu
+* Cập nhật hệ thống thường xuyên
+* Giám sát nhật ký hệ thống
+* Sao lưu định kỳ
+* Cấu hình tường lửa
+
+## 13. Kết luận phần 1
+Linux và đặc biệt là Ubuntu là nền tảng vững chắc cho Data Engineer và DevOps, với các công cụ quản lý package đa dạng, khả năng scripting mạnh mẽ, và tính năng bảo mật cao. Việc hiểu và áp dụng đúng các công cụ này sẽ giúp tối ưu hóa workflow và đảm bảo hệ thống hoạt động ổn định, an toàn.
 
 # BÁO CÁO THỰC TẬP DATA ENGINEER VÀ DEVOPS - PHẦN 2: TỔNG HỢP KIẾN THỨC MẠNG
 
@@ -326,3 +498,154 @@ Kết quả: Kernel 5.15.0-73-generic.
 
 ## 7. Kết luận
 Phần này giúp tôi hiểu khái niệm mạng, thuật ngữ, và công cụ qua thực hành trên Ubuntu. Các kiến thức về IP, SSH, SCP, SMTP, FTP, SFTP, HTTP/HTTPS, DNS, UDP, TCP, VPN, NAT, VM hỗ trợ tôi trong việc quản lý hệ thống và pipeline dữ liệu, là nền tảng cho công việc Data Engineer và DevOps.
+
+## 6. Container Networking
+
+### 6.1. Docker Networking
+* **Network drivers**:
+  * Bridge
+  * Host
+  * Overlay
+  * Macvlan
+* **Commands**:
+```bash
+# Create network
+docker network create mynet
+
+# Connect container
+docker run --network mynet nginx
+```
+
+### 6.2. Kubernetes Networking
+* **Services**:
+  * ClusterIP
+  * NodePort
+  * LoadBalancer
+* **Network Policies**:
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-allow
+spec:
+  podSelector:
+    matchLabels:
+      app: api
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          role: frontend
+```
+
+## 7. Cloud Networking
+
+### 7.1. Virtual Private Cloud (VPC)
+* **Components**:
+  * Subnets
+  * Route Tables
+  * Internet Gateways
+  * NAT Gateways
+* **Best Practices**:
+  * Separate public/private subnets
+  * Use Network ACLs
+  * Implement VPC Flow Logs
+
+### 7.2. Security Groups
+```bash
+# AWS CLI example
+aws ec2 create-security-group \
+    --group-name my-sg \
+    --description "My security group"
+```
+
+## 8. Network Security
+
+### 8.1. SSL/TLS Certificates
+```bash
+# Generate self-signed certificate
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout private.key -out certificate.crt
+```
+
+### 8.2. Firewall Rules
+```bash
+# UFW examples
+sudo ufw allow 22/tcp
+sudo ufw allow from 192.168.1.0/24 to any port 3306
+```
+
+## 9. Monitoring và Logging
+
+### 9.1. Prometheus
+```yaml
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'node'
+    static_configs:
+      - targets: ['localhost:9100']
+```
+
+### 9.2. ELK Stack
+* **Filebeat configuration**:
+```yaml
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/*.log
+```
+
+## 10. Troubleshooting Guide
+
+### 10.1. Network Issues
+* **Connectivity**:
+```bash
+# Check DNS
+dig example.com
+
+# Check routing
+traceroute example.com
+
+# Check ports
+netstat -tuln
+```
+
+### 10.2. Common Problems
+* **DNS Resolution**:
+```bash
+# Edit resolv.conf
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+```
+
+* **SSL Issues**:
+```bash
+# Test SSL
+openssl s_client -connect example.com:443
+```
+
+## 11. Ứng dụng trong Data Engineer và DevOps
+
+### Data Engineer
+* Pipeline monitoring
+* Data transfer optimization
+* Security compliance
+
+### DevOps
+* CI/CD networking
+* Infrastructure automation
+* Container orchestration
+
+## 12. Kết luận phần 2
+Kiến thức mạng là nền tảng quan trọng cho cả Data Engineer và DevOps. Việc hiểu và áp dụng đúng các concepts về networking, từ cơ bản đến nâng cao như container networking và cloud infrastructure, sẽ giúp xây dựng và vận hành hệ thống một cách hiệu quả và an toàn.
+
+## Tài liệu tham khảo
+1. Ubuntu Documentation: https://help.ubuntu.com/
+2. Docker Networking: https://docs.docker.com/network/
+3. Kubernetes Networking: https://kubernetes.io/docs/concepts/services-networking/
+4. AWS VPC Documentation: https://docs.aws.amazon.com/vpc/
+5. Prometheus Documentation: https://prometheus.io/docs/
+6. ELK Stack: https://www.elastic.co/guide/
