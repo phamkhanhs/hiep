@@ -29,6 +29,8 @@
   - [11. Ứng dụng trong Data Engineer và DevOps](#11-ứng-dụng-trong-data-engineer-và-devops)
   - [12. Kết luận phần 2](#12-kết-luận-phần-2)
 
+# BÁO CÁO THỰC TẬP DATA ENGINEER VÀ DEVOPS - PHẦN 1: LINUX VÀ CÁC BẢN PHÂN PHỐI - TẬP TRUNG VÀO UBUNTU
+
 ## 1. Linux là gì?
 Linux là một hệ điều hành mã nguồn mở (open-source) được xây dựng dựa trên nhân (kernel) Linux, do Linus Torvalds phát triển từ năm 1991. Không giống các hệ điều hành độc quyền như Windows hay macOS, Linux cho phép người dùng tự do truy cập, chỉnh sửa, và phân phối mã nguồn. Linux thường được gọi là **GNU/Linux**, vì nó kết hợp nhân Linux với các công cụ từ dự án GNU.
 
