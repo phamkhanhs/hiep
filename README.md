@@ -50,6 +50,50 @@ Ubuntu được ra mắt ngày 20/10/2004 bởi **Canonical Ltd.**, do **Mark Sh
 3. Chọn ngôn ngữ, múi giờ, phân vùng ổ cứng, tạo user/password.
 4. Hoàn tất cài đặt, khởi động lại máy.
 
+#### Cài đặt thông qua WSL/WSL2 trên Windows
+WSL (Windows Subsystem for Linux) cho phép chạy môi trường Linux trực tiếp trên Windows mà không cần máy ảo.
+
+##### Cài đặt WSL2
+1. Bật tính năng WSL trên Windows:
+```powershell
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+```
+
+2. Khởi động lại máy tính.
+
+3. Tải và cài đặt Linux kernel update package từ Microsoft.
+
+4. Đặt WSL2 làm phiên bản mặc định:
+```powershell
+wsl --set-default-version 2
+```
+
+##### Cài đặt Ubuntu trên WSL
+* **Cách 1**: Qua Microsoft Store
+  1. Mở Microsoft Store
+  2. Tìm "Ubuntu"
+  3. Chọn phiên bản (Ubuntu 22.04 LTS) và nhấn "Get"
+  4. Sau khi cài đặt, khởi động Ubuntu và tạo user/password
+
+* **Cách 2**: Qua Command Line
+```powershell
+wsl --install -d Ubuntu-22.04
+```
+
+##### Ưu điểm của WSL2
+* Tích hợp tốt với Windows
+* Hiệu năng gần với Linux native
+* Hỗ trợ GPU cho các tác vụ AI/ML
+* Dễ dàng truy cập file giữa Windows và Linux
+* Phù hợp cho phát triển DevOps và Data Engineering
+
+##### Lưu ý khi dùng WSL2
+* Cần Windows 10 version 2004 trở lên
+* Yêu cầu virtualization được bật trong BIOS
+* Một số giới hạn về networking khác với Linux native
+* Nên cấu hình giới hạn RAM để tránh WSL2 dùng quá nhiều tài nguyên
+
 ### 6.2. Kiểm tra các câu lệnh cơ bản
 * **Kiểm tra phiên bản Ubuntu**:
 ```bash
@@ -76,7 +120,7 @@ sudo apt update && sudo apt upgrade -y
 top
 ```
 
-## 7. Tại sao chọn Ubuntu trong bối cảnh Data Engineer và DevOps?
+## 7. Tại sao tôi chọn Ubuntu trong bối cảnh Data Engineer và DevOps?
 * **Tích hợp tốt với DevOps**: Docker, Kubernetes, Jenkins, Ansible.
 * **Tương thích với hệ sinh thái dữ liệu lớn**: Hadoop, Spark, Kafka, Airflow.
 * **Ổn định và đáng tin cậy**: Ubuntu LTS đảm bảo không gián đoạn.
@@ -109,7 +153,7 @@ top
 ## 10. Kết luận
 Linux là một hệ điều hành mã nguồn mở với nhiều lợi ích. Ubuntu, với sự hỗ trợ mạnh mẽ từ Canonical, là lựa chọn lý tưởng cho Data Engineer và DevOps nhờ tính ổn định, khả năng tích hợp công cụ hiện đại, và sự hỗ trợ mạnh từ cộng đồng.
 
-# BÁO CÁO THỰC TẬP DATA ENGINEER VÀ DEVOPS - PHẦN 2: TỔNG HỢP KIẾN THỨC
+# BÁO CÁO THỰC TẬP DATA ENGINEER VÀ DEVOPS - PHẦN 2: TỔNG HỢP KIẾN THỨC MẠNG
 
 ## 1. Giới thiệu
 Trong thực tập vai trò **Data Engineer** kết hợp **DevOps**, việc hiểu các khái niệm mạng cơ bản, thuật ngữ, giao thức và công cụ mạng là bước đầu để tôi quản lý hệ thống và xử lý dữ liệu hiệu quả. Phần báo cáo này tổng hợp kiến thức về mạng, bao gồm **khái niệm cơ bản**, **thuật ngữ**, **công cụ mạng**, và các thực hành trên **Ubuntu** với các giao thức như **IP, SSH, SCP, SMTP, FTP, SFTP, HTTP/HTTPS, DNS, UDP, TCP, VPN, NAT, VM**.
